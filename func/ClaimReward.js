@@ -1,5 +1,6 @@
 const { default: axios } = require("axios");
 const { validateToken } = require("./CheckValidToken");
+const { claimFarming, startFarming } = require("./repo");
 
 const checkAvailableClaim = async (token) => {
   const CLAIM_FARMING_API =
@@ -14,54 +15,52 @@ const checkAvailableClaim = async (token) => {
       },
     });
 
-    const endTime = new Date(response.data.farming.endTime);
+    let status;
+    if (response.data.farming === undefined) {
+      status = true;
+    } else {
+      status = now > response.data.farming.endTime;
+    }
 
-    return now > endTime;
+    return status;
   } catch (error) {
     console.error("Error checking claim:", error);
     return false;
   }
 };
 exports.claimRewards = async () => {
-  const CLAIM_FARMING_API =
-    "https://game-domain.blum.codes/api/v1/farming/claim";
-
   try {
     const tokens = await validateToken();
 
     for (const token of tokens) {
       try {
         const available = await checkAvailableClaim(token);
+
         if (available) {
           try {
-            const claim = await axios.post(
-              CLAIM_FARMING_API,
-              {},
-              {
-                headers: {
-                  Authorization: `Bearer ${token.token}`,
-                },
+            try {
+              const claim = await claimFarming(token.token);
+              console.log(
+                `[ Running ] : Farming rewards successfully claimed. ${claim.data}`
+              );
+            } catch (error) {
+              if (error === 412) {
+                const start = await startFarming(token.token);
+                console.log(
+                  `[ Running ] : Farming started.. earnings rate : ${start.earningsRate}`
+                );
+              } else {
+                console.log(`[ Error ] : Claim farming failed. ${error}`);
               }
-            );
-
-            `[ Running ] : Farming rewards successfully claimed. ${claim.data}`;
-            const start = await axios.post(
-              "https://game-domain.blum.codes/api/v1/farming/start",
-              {},
-              {
-                headers: {
-                  Authorization: `Bearer ${token.token}`,
-                },
-              }
-            );
-            console.log(start.data);
+            }
           } catch (error) {
             if (error.response.status === 425) {
               console.log(`[ BOT ] : It's too early to claim`);
             }
+            console.log(`[ Error ] : Claim farming failed. ${error}`);
           }
         } else {
-          console.log(`[ completed ] : No need claim farming.`);
+          console.log(`[ Completed ] : No need claim farming.`);
         }
       } catch (error) {
         console.log(`[ Error ] : error from claim farming. ${error.message}`);

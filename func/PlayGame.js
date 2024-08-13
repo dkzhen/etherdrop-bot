@@ -60,12 +60,12 @@ exports.playGame = async () => {
   try {
     for (const token of tokens) {
       const availableGame = await checkAvailableGame(token);
-      if (availableGame <= 1) {
+      if (availableGame < 1) {
         console.log(`[ Completed ] : no game available to play`);
       } else {
         let gameCount = await checkAvailableGame(token);
         let count = 1;
-        while (gameCount > 1) {
+        while (gameCount > 0) {
           const gameId = await createGame(token, API_CREATE_GAME);
           await delayedExecution(count);
           const claim = await claimReward(token, API_CLAIM_REWARD, gameId);
