@@ -5,7 +5,7 @@ configDotenv();
 
 exports.getAuthToken = async () => {
   const API_AUTH =
-    "https://gateway.blum.codes/v1/auth/provider/PROVIDER_TELEGRAM_MINI_APP";
+    "https://user-domain.blum.codes/api/v1/auth/provider/PROVIDER_TELEGRAM_MINI_APP";
 
   try {
     const data = await fs.readFile("configs/config.json", "utf-8");
