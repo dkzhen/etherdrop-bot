@@ -5,7 +5,7 @@ const e = require("express");
 configDotenv();
 
 exports.validateToken = async () => {
-  const API_URL = "https://game-domain.blum.codes/api/v1/tasks";
+  const API_URL = "https://earn-domain.blum.codes/api/v1/tasks";
   const tokens = await getAuthToken();
 
   const validToken = [];
@@ -20,6 +20,7 @@ exports.validateToken = async () => {
       console.log(`[ BOT ] : Checking token done..`);
       validToken.push(token);
     } catch (error) {
+      console.log(error);
       console.log(error.response.status);
       console.log(`[ Error ] : validate token failed`);
     }

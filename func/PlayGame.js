@@ -49,6 +49,7 @@ async function delayedExecution(count) {
   console.log(`[ ${count} ] Game started...`);
   await new Promise((resolve) => setTimeout(resolve, 40000));
   console.log(`[ ${count} ] Game ended...`);
+  await new Promise((resolve) => setTimeout(resolve, 2000));
 }
 
 exports.playGame = async () => {
@@ -77,6 +78,6 @@ exports.playGame = async () => {
       }
     }
   } catch (error) {
-    console.log(error);
+    console.log(`[ Error ] : Game failed. ${error.response.status}`);
   }
 };
