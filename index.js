@@ -10,16 +10,9 @@ configDotenv();
 // Schedule the task to run every hour on the hour
 dailyLogin();
 dailyTask();
-// playGame();
-// claimMission();
-// claimRewards();
-// mission();
-// cron.schedule("0 * * * *", playGame);
-// cron.schedule("0 * * * *", claimMission);
-// cron.schedule("0 * * * *", claimRewards);
-// cron.schedule("0 * * * *", mission);
 
-// cron.schedule("0 0 * * *", DailyRewards);
+cron.schedule("0 0 * * *", dailyLogin);
+cron.schedule("0 0 * * *", dailyTask);
 
 // Start the server
 const port = process.env.PORT || 104;
