@@ -1,17 +1,9 @@
 # etherdrop-bot
 
-blum-bot is a Telegram automation tool designed to help you manage and interact with [blum bot](https://t.me/BlumCryptoBot/app?startapp=ref_g5qK5BurG3).
-
-<p align="center">
-  <img src="public/blum.png" alt="blum" width="300"/>
-</p>
-
 ### Features
 
 - Auto claim daily Rewards
-- Auto claim farming rewards
-- Auto play game with max points
-- Auto claim mission
+- Auto daily task & social task
 - support multi account
 
 ### How to use
@@ -21,7 +13,7 @@ you can clone repository and add your token query
 - Clone repository
 
 ```bash
-git clone https://github.com/dkzhen/blum-bot.git
+git clone <url repo>
 ```
 
 - add config.json on folder configs
@@ -67,3 +59,5 @@ You can contact me for more information or report an issue.
 - [GitHub](https://github.com/dkzhen)
 
 - [Telegram](https://t.me/dk_zhen2)
+
+- [Telegram Channel](https://t.me/cryptoporia)
