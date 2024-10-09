@@ -5,7 +5,7 @@ const e = require("express");
 configDotenv();
 
 exports.validateToken = async () => {
-  const API_URL = "https://earn-domain.blum.codes/api/v1/tasks";
+  const API_URL = "https://api.miniapp.dropstab.com/api/refLink";
   const tokens = await getAuthToken();
 
   const validToken = [];

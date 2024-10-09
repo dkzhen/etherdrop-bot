@@ -1,4 +1,4 @@
-# blum-bot
+# etherdrop-bot
 
 blum-bot is a Telegram automation tool designed to help you manage and interact with [blum bot](https://t.me/BlumCryptoBot/app?startapp=ref_g5qK5BurG3).
 

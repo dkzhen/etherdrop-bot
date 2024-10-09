@@ -4,8 +4,7 @@ const fs = require("fs").promises;
 configDotenv();
 
 exports.getAuthToken = async () => {
-  const API_AUTH =
-    "https://user-domain.blum.codes/api/v1/auth/provider/PROVIDER_TELEGRAM_MINI_APP";
+  const API_AUTH = "https://api.miniapp.dropstab.com/api/auth/login";
 
   try {
     const data = await fs.readFile("configs/config.json", "utf-8");
@@ -14,9 +13,11 @@ exports.getAuthToken = async () => {
 
     for (const token of tokens) {
       try {
-        const response = await axios.post(API_AUTH, { query: token.token });
+        const response = await axios.post(API_AUTH, {
+          webAppData: token.token,
+        });
 
-        const auth = response.data.token.access;
+        const auth = response.data.jwt.access.token;
 
         authToken.push({ token: auth });
       } catch (error) {
